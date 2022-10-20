@@ -71,8 +71,49 @@ for cnt in cnts:
         cv2.rectangle(Enhanced_image_LINE,(x,y),(x+w,y+h),(0,255,0),2)
         Color_Components.append(Enhanced_image_LINE[y:y+h,x:x+w])
 
+patches = [ ]
+LW = (0,0,221)
+UW = (180,30,255)
 
-cv2.imshow("Enhanced Image",Enhanced_image_LINE)
+for color in Color_Components:  
+    cv2.imshow("Color",color)
+    cv2.waitKey(0)
+
+    height, width, _ = np.shape(color)
+
+    # reshape the image to be a simple list of RGB pixels
+    image = color.reshape((height * width, 3))
+
+    # we'll pick the 5 most common colors
+    num_clusters = 1
+    clusters = KMeans(n_clusters=num_clusters)
+    clusters.fit(image)
+
+    # count the dominant colors and put them in "buckets"
+    histogram = make_histogram(clusters)
+
+    # then sort them, most-common first
+    combined = zip(histogram, clusters.cluster_centers_)
+    combined = sorted(combined, key=lambda x: x[0], reverse=True)
+
+    # finally, we'll output a graphic showing the colors in order
+    for index, rows in enumerate(combined):
+      bar, rgb, hsv = make_bar(100, 100, rows[1])
+      if hsv[0]>LW[0] and hsv[1]>LW[1] and hsv[2]>LW[2]and hsv[0]<UW[0] and hsv[1]<UW[1] and hsv[2]<UW[2] :
+        print('HSV value:',hsv)
+    
+    patches.append(color)
+ 
+
+'''Resize Image'''
+Image1 = Enhanced_image_LINE
+scale_percent = 40 # percent of original size
+width = int(Image1.shape[1] * scale_percent / 100)
+height = int(Image1.shape[0] * scale_percent / 100)
+dim = (width, height)
+# resize image
+resized = cv2.resize(Image1, dim, interpolation = cv2.INTER_AREA)
+cv2.imshow("Resized Images",resized)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
