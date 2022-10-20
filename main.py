@@ -56,7 +56,23 @@ result =  cv2.bitwise_or(vertical_mask, horizontal_mask)
 kernel = np.ones((5,5),np.uint8)
 dilated_img = cv2.dilate(result, kernel, iterations = 1)
 
-cv2.imshow("Enhanced Image",dilated_img)
+'''Find Contours in the image '''
+contours  = cv2.findContours(dilated_img, cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)[0]
+
+'''Detecting Colors on the Reference Chart by detecting rectangles/sqaures in the image from the obtained contours'''
+cnts = contours
+Color_Components = [ ]
+
+ColorBalImg = color_balance(image,2,1)
+
+for cnt in cnts:
+    if cv2.contourArea(cnt) >3000 : # filter small contours
+        x,y,w,h = cv2.boundingRect(cnt) # offsets - with this you get 'mask'
+        cv2.rectangle(Enhanced_image_LINE,(x,y),(x+w,y+h),(0,255,0),2)
+        Color_Components.append(Enhanced_image_LINE[y:y+h,x:x+w])
+
+
+cv2.imshow("Enhanced Image",Enhanced_image_LINE)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
