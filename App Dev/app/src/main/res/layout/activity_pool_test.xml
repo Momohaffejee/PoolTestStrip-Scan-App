@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.poolHealth.PoolTestActivity">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chemical Balance Report"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:textSize="32dp" />
+        <TableLayout android:id="@+id/tblPoolTest"
+            android:layout_width="wrap_content"
+            android:layout_height="500dp"
+            android:stretchColumns="*">
+            <TableRow>
+                <TextView
+                    android:text="Total Hardness (TH) :"
+                    android:width ="200dp"
+                    android:textSize="20dp"
+                    android:height= "50dp"
+                    android:textColor="@color/colorPrimary"/>
+                <EditText
+                    android:id="@+id/txtTotalHardness"
+                    android:width="200dp"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:text="200"
+                    android:inputType="number"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Total Bromine (Br) :"
+                    android:width ="200dp"
+                    android:textSize="20dp"
+                    android:height= "50dp"
+                    android:textColor="@color/colorPrimary"/>
+                <EditText
+                    android:id="@+id/txtBromine"
+                    android:width="200dp"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:text="2"
+                    android:inputType="number"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Free Chlorine (FH) :"
+                    android:width ="200dp"
+                    android:textSize="20dp"
+                    android:height= "50dp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <EditText
+                    android:id="@+id/txtFreeChlorine"
+                    android:layout_height="match_parent"
+                    android:width="200dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:text="5" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="pH :"
+                    android:width ="200dp"
+                    android:textSize="20dp"
+                    android:height= "50dp"
+                    android:textColor="@color/colorPrimary"/>
+                <EditText
+                    android:id="@+id/txtpH"
+                    android:width="200dp"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:text="7.8"
+                    android:inputType="numberDecimal"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Total Alkalinity (TA) :"
+                    android:width ="200dp"
+                    android:textSize="20dp"
+                    android:height= "50dp"
+                    android:textColor="@color/colorPrimary"/>
+                <EditText
+                    android:id="@+id/txtAlkalinity"
+                    android:width="200dp"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:text="80"
+                    android:inputType="numberDecimal"/>
+            </TableRow>
+
+
+        </TableLayout>
+        <Button
+            android:id="@+id/btnSavePool"
+            android:text="Save"
+            android:background="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
