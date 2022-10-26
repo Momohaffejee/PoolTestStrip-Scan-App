@@ -18,13 +18,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.poolHealth.Models.ScanModel;
 import com.poolHealth.Models.ChemBalance;
+import com.poolHealth.Models.ScanModel;
 import com.poolHealth.util.LabDB;
 
 import java.io.File;
@@ -41,9 +39,7 @@ public class ScanDetails extends AppCompatActivity {
     TextView txtPlno;
     ScanModel newScan = new ScanModel();
     ChemBalance chemBalance = new ChemBalance();
-    EditText txtPlName;
-    EditText txtAge;
-    RadioButton optMale,optFemale,optOther;
+
     private  static  int TAKE_PICTURE = 111;
     String mCurrentPhotoPath;
     Context thisContext;
@@ -58,7 +54,6 @@ public class ScanDetails extends AppCompatActivity {
 
         txtPlno = findViewById(R.id.txtScanNo);
 
-//        isStoragePermissionGranted();
         isCameraPermissionGranted();
         btnSave = findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +71,6 @@ public class ScanDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(txtPlno.getText().toString().equals("")){
-                    // Show Message to Save Record
                     Toast.makeText(getApplicationContext(),"Please Click New Pool to continue",Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -84,16 +78,14 @@ public class ScanDetails extends AppCompatActivity {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    // Create the File where the photo should go
                     File photoFile = null;
                     try {
                         photoFile = createImageFile();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    // Continue only if the File was successfully created
+
                     if (photoFile != null) {
-//                        Uri photoURI  = Uri.fromFile(photoFile);
                         Uri photoURI  = FileProvider.getUriForFile(ScanDetails.this,
                                 "com.poolhealth.fileprovider",
                                 photoFile);
@@ -116,11 +108,7 @@ public class ScanDetails extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-//            newPatient = new ScanModel();
 
-
-
-            // Save Patient Detail
             LabDB db = new LabDB(getApplicationContext());
 
             int np = db.SaveScan(newScan);
@@ -130,7 +118,7 @@ public class ScanDetails extends AppCompatActivity {
                 e.printStackTrace();
             }
             newScan.setPlNo(np);
-            // Save Vital Sign
+
             chemBalance.setScn_no(newScan.getPlNo());
 
 
@@ -182,7 +170,7 @@ public class ScanDetails extends AppCompatActivity {
                 return false;
             }
         }
-        else { //permission is automatically granted on sdk<23 upon installation
+        else {
             Log.v(TAG,"Permission is granted");
             return true;
         }
@@ -211,7 +199,6 @@ public class ScanDetails extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
             Log.v(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
-            //resume tasks needing this permission
         }
 
     }
@@ -220,7 +207,6 @@ public class ScanDetails extends AppCompatActivity {
     private File getOutputMediaFile(){
 
         File mediaStorageDir = new File(String.valueOf(getApplicationContext().getExternalFilesDir("scn_photos")));
-        // Create the storage directory if it does not exist
         if (! mediaStorageDir.exists()){
             if (! mediaStorageDir.mkdirs()){
                 Log.d("poolHealth", "failed to create directory");
@@ -228,7 +214,6 @@ public class ScanDetails extends AppCompatActivity {
             }
         }
 
-        // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
         mediaFile = new File(mediaStorageDir.getPath() + File.separator +
@@ -236,7 +221,7 @@ public class ScanDetails extends AppCompatActivity {
         return mediaFile;
     }
     private File createImageFile() throws IOException {
-        // Create an image file name
+
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "POOL_" + txtPlno.getText().toString() + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -246,7 +231,6 @@ public class ScanDetails extends AppCompatActivity {
                 storageDir      /* directory */
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }

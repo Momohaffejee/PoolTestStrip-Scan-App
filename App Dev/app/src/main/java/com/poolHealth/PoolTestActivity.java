@@ -31,7 +31,6 @@ public class PoolTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pool_test);
         scn_no = getIntent().getIntExtra("PLNO",0);
-//        result_data = getIntent().getStringExtra("RESULT");
 
         txtTitle = findViewById(R.id.txtTitle);
         txtThardness = findViewById(R.id.txtTotalHardness);
@@ -40,10 +39,10 @@ public class PoolTestActivity extends AppCompatActivity {
         txtAlkalinity = findViewById(R.id.txtAlkalinity);
         txtPH = findViewById(R.id.txtpH);
 
-        // Load Data
+
         final LabDB db = new LabDB(getApplicationContext());
         poolReport = db.getLastPoolReport(scn_no);
-//        poolReport = loadfromdata();
+
         txtThardness.setText(String.valueOf(poolReport.getThardness()));
         txtBromine.setText(String.valueOf(poolReport.getBro()));
         txtFC.setText(String.valueOf(poolReport.getFC()));

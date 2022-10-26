@@ -38,7 +38,7 @@ public class LabDB extends SQLiteOpenHelper {
     // Columns of Vital Signs
 
 
-    // Patient Pool Test Report
+    //  Pool Test Report
     private static final String TABLE_POOL_TEST = "pool_test";
     // Columns of Pool
 

@@ -39,11 +39,10 @@ public class PoolConfirmActivity extends AppCompatActivity {
     Bitmap currentpict;
     Button recapture, done;
 
-    //image holder
-    public Mat original_image, initial_image;
 
-    // colorlist for the patches
-    ArrayList<Scalar> color_list;
+    public Mat original_image, initial_image; //for image
+
+    ArrayList<Scalar> colour_list; //colour patches
 
     final Size kernelSize = new Size(7, 7);
 
@@ -65,16 +64,12 @@ public class PoolConfirmActivity extends AppCompatActivity {
             Log.d(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), working.");
         }
 
-
-        // initializing PatchClassifier class
         patchClassifier = new PatchClassifier(PoolConfirmActivity.this, plno);
 
         mCurrentPhotoPath = getIntent().getStringExtra("photopath");
-//         mCurrentPhotoPath = "sdcard/strip_images/30.jpg";
 
 
 
-//        mImageView.setImageBitmap(currentpict);
         setPic();
 
 
@@ -91,49 +86,30 @@ public class PoolConfirmActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (currentpict == null) {
-                    // something is wrong
-//                    System.out.println("current pict null");
+
                     return;
                 } else {
-//                    System.out.println("pict not null");
+
                 }
                 if(done.getText().equals("OK")){
-                    patchClassifier.classifyData(color_list, PoolConfirmActivity.this, plno);
+                    patchClassifier.classifyData(colour_list, PoolConfirmActivity.this, plno);
                     finish();
                 }
 
-                // Process Bitmap
-                // ********************
-                //
-                bitmapToMat();
-//                imageCrop(currentpict);
-                //
-                // ********************
-                // End of Bitmap Process
-                // Now Call the report activity to fill the cessed data
 
+                bitmapToMat();
             }
         });
     }
 
     private void setPic() {
-        // Get the dimensions of the View
-//        int targetW = mImageView.getWidth();
-//        int targetH = mImageView.getHeight();
 
-        // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-//        int photoW = bmOptions.outWidth;
-//        int photoH = bmOptions.outHeight;
 
-        // Determine how much to scale down the image
-//        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
-//        bmOptions.inSampleSize = scaleFactor;
+
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
@@ -180,40 +156,27 @@ public class PoolConfirmActivity extends AppCompatActivity {
                 matrix, true);
     }
 
-    // converting bitmap to Mat
     public void bitmapToMat() {
 
-        //initialing the image holder
         initial_image = new Mat();
 
 
         BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
         bmpFactoryOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;
 
-//        Bitmap bmp = BitmapFactory.decodeStream(stream, null, bmpFactoryOptions);
 
-//        Mat ImageMat = new Mat();
         Utils.bitmapToMat(currentpict, initial_image);
-        // ---------------------------------------------------------------------------------------------------------------------
 
-
-        // getting the rectangle
         getrectangle(initial_image);
-
-//        imgCapture.setImageMatrix(initial_image);
-
-
     }
 
-    // get rectangle from the Mat image
+
     public void getrectangle(Mat matImage) {
 
-        // saving the matImage
         try {
             original_image = new Mat();
             matImage.copyTo(original_image);
 
-            // Defining color range for masking
             Scalar min_white = new Scalar(0, 0, 50);
             Scalar max_white = new Scalar(255, 255, 180);
 
@@ -228,12 +191,6 @@ public class PoolConfirmActivity extends AppCompatActivity {
             int x2 = original_image.width();
             int y2 = original_image.height();
             Rect roi = new Rect(x1, y1, x2 - x1, y2);
-//        System.out.println("cropped values x1 " + x1 + " x2 " + x2 + " y1 " + y1 + " y2 " + y2);
-//        if(1==1) return;
-//        Mat cropped = new Mat(original_image, roi);
-
-//        cropped.copyTo(matImage);
-//        cropped.copyTo(original_image);
             original_image.copyTo(matImage);
             Imgproc.cvtColor(matImage, matImage, Imgproc.COLOR_BGR2GRAY);
             Imgproc.medianBlur(matImage, matImage, 7);
@@ -249,7 +206,6 @@ public class PoolConfirmActivity extends AppCompatActivity {
         }
     }
 
-    ///Users/apple/StudioProjects/poolHealth/app/src/main/java/com/poolHealth/PoolConfirmActivity.java
     public void position_of_first_and_last_patches(Mat image, RotatedRect rect) {
         try {
             Mat orig_cropped = new Mat();
@@ -260,7 +216,6 @@ public class PoolConfirmActivity extends AppCompatActivity {
 
             Mat white_rectangle_hsv = crop_rotated_rectangle(image, rect);
         showimage(white_rectangle_hsv);
-//        if(true)return;
 
             int pro_x1 = 0;
             int pro_y1 = (int) (white_rectangle_hsv.height() * 0.2);
@@ -271,11 +226,6 @@ public class PoolConfirmActivity extends AppCompatActivity {
 
             Rect roi_pro = new Rect(pro_x1, pro_y1, pro_width, pro_height);
             Mat pro_patch = new Mat(white_rectangle_hsv, roi_pro);
-
-            //Imgproc.cvtColor(pro_patch, pro_patch, Imgproc.COLOR_HSV2RGB);
-
-            //showimage(pro_patch);
-            //if(true) return;
 
 
             Scalar min_pro1 = new Scalar(34, 50, 100);
@@ -312,10 +262,6 @@ public class PoolConfirmActivity extends AppCompatActivity {
                 ;
             }
             Imgproc.threshold(mask_pro1, mask_pro1, 120, 255, Imgproc.THRESH_BINARY);
-
-
-            // showimage(mask_pro1);
-            //if(true) return;
 
             Point[] pro_points = find_rectangle_contour_second(mask_pro1);
 
@@ -365,17 +311,11 @@ public class PoolConfirmActivity extends AppCompatActivity {
 
             Imgproc.rectangle(white_rectangle, new Point(asc_points[0].x, asc_points[0].y), new Point(asc_points[3].x, asc_points[3].y), new Scalar(255, 0, 0, 255), 6);
 
-
-            //showimage(white_rectangle);
-            //if (true) return;
-
             int centerx1 = (int) (int) ((pro_points[0].x + pro_points[3].x) * 0.5);
             int centery1 = (int) (int) ((pro_points[0].y + pro_points[3].y) * 0.5);
 
             int centerx2 = (int) (int) ((asc_points[0].x + asc_points[3].x) * 0.5);
             int centery2 = (int) (int) ((asc_points[0].y + asc_points[3].y) * 0.5);
-            //Imgproc.line(orig_cropped,new Point(centerx1,centery1),new Point(centerx2,centery2),new Scalar(0,0,255,255),4);
-
 
             int xl = 0;
             int yl = 0;
@@ -431,7 +371,6 @@ public class PoolConfirmActivity extends AppCompatActivity {
                 points_on_centerline = pointOnLine(distance, centerx1, centery1, centerx2, centery2, margin);
                 margin -= step ;
 
-                //Imgproc.rectangle(orig_cropped,point_left,point_right,new Scalar(0,255,0,255),6);
                 int xt = (int) points_on_centerline.x - 40;
                 int yt = (int) points_on_centerline.y - 40;
 
@@ -464,7 +403,7 @@ public class PoolConfirmActivity extends AppCompatActivity {
 
     public void plotPatch(ArrayList<Rect> colorlist, Mat patchImage) {
         try {
-            color_list = new ArrayList<>();
+            colour_list = new ArrayList<>();
             for (int i = 0; i < 11; i++) {
                 int x = colorlist.get(i).x;
                 int y = colorlist.get(i).y;
@@ -475,17 +414,15 @@ public class PoolConfirmActivity extends AppCompatActivity {
                 Mat cropped = new Mat(patchImage, roi);
 
                 // adding the extracted colors to the color list
-                color_list.add(getMeanRGB(cropped));
+                colour_list.add(getMeanRGB(cropped));
             }
             done.setText("OK");
-            // -----------------------------------------------------------------------------------------
-//            patchClassifier.classifyData(color_list, this, ptno);
 
         }catch (Exception e){
             e.printStackTrace();
             Toast.makeText(PoolConfirmActivity.this,"Error Processing Image3, Please Recapture the image and try aggain",Toast.LENGTH_LONG).show();
         }
-//        finish();
+
     }
 
     //getting points on the center line
@@ -506,20 +443,17 @@ public class PoolConfirmActivity extends AppCompatActivity {
         return newPoint;
     }
 
-    // get mean rgb
+
     public Scalar getMeanRGB(Mat matImage) {
         return Core.mean(matImage);
     }
 
     void showimage(Mat matImage) {
-        // convert to bitmap:
+
         Bitmap bm = Bitmap.createBitmap(matImage.cols(), matImage.rows(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(matImage, bm);
 
         mImageView.setImageBitmap(bm);
-        // -----------------------------------------------------------------------------------------
-
-        // find the imageview and draw it!
     }
 
     private static final String pad(String s) {
@@ -610,18 +544,11 @@ public class PoolConfirmActivity extends AppCompatActivity {
             double orgtheta = theta;
             System.out.println("theta degree " + theta);
 
-//            theta += 90;
-
             int width = (int) rect.size.width;
             int height = (int) rect.size.height;
-            //if(theta<20)
-              //  theta +=90;
 
 
             if (theta > 45 && theta <= 90) {
-
-//                theta = theta - 90;
-
 
                 int a = width;
 
@@ -646,12 +573,6 @@ public class PoolConfirmActivity extends AppCompatActivity {
             double s_x = center_x - v_x_0 * (rect.size.width / 2) - v_y_0 * (rect.size.height / 2);
             double s_y = center_y - v_x_1 * (rect.size.width / 2) - v_y_1 * (rect.size.height / 2);
             System.out.println("Needed Values sx " + s_x + " " + s_y);
-//        Point center = new Point(rect.center.x, rect.center.y);
-//                Mat rot_mat = new Mat();
-////
-////
-//        rot_mat = Imgproc.getRotationMatrix2D(center, theta, 1);
-//        System.out.println("Rot mat Rows " + rot_mat.rows() + " Cols " + rot_mat.cols() + " " + rot_mat);
 
 
             Mat rotat = new Mat();
@@ -672,64 +593,6 @@ public class PoolConfirmActivity extends AppCompatActivity {
             Toast.makeText(PoolConfirmActivity.this,"Error Processing Image4",Toast.LENGTH_LONG).show();
             return null;
         }
-//
-//
-//
-//        //Size new_size = new Size(newwidth,newheight);
-//
-//        //double redian = Math.toRadians(rect.angle);
-//        //System.out.println("radian "+redian);
-//
-//
-//        //double sin = Math.abs(Math.sin(redian));
-//
-//        //double cos = Math.abs(Math.cos(redian));
-//
-//        //int newwidth = (int) (rect.size.width*cos+rect.size.height*sin);
-//        //int newheight = (int) (rect.size.height*cos+rect.size.width*sin);
-//
-//        //Point new_center = new Point(newwidth/2,newheight/2);
-//
-//        //Size new_size = new Size(newwidth,newheight);
-//
-//        int center_x = (int) rect.center.x;
-//        int center_y = (int) rect.center.y;
-//
-//
-//        // Point new_center = new Point(rect.size.width/2,rect.size.height/2);
-//
-//
-//        Point center = new Point(center_x, center_y);
-//
-//
-//        Mat dest = new Mat();
-//        int flags = Imgproc.CV_WARP_INVERSE_MAP;
-//        int borderMode = Core.BORDER_REPLICATE;
-//
-//        //System.out.println("here " + new_mat.size() + "mat image size" + matImage.size());
-//
-//
-//        Size size = rect.size;
-//        Mat rot_mat = new Mat();
-//
-//
-//        rot_mat = Imgproc.getRotationMatrix2D(center, theta, 1);
-//
-//        System.out.println("rot mat" + rot_mat.size());
-//
-//
-//        System.out.println("11");
-//
-//        Mat rotat = new Mat();
-//
-//        Imgproc.warpAffine(matImage, rotat, rot_mat, matImage.size(), Imgproc.INTER_CUBIC);
-//
-//        //Imgproc.warpAffine(new_mat,dest,rot_mat, new_mat.size(),flags);
-//        System.out.println("22");
-//        Imgproc.getRectSubPix(rotat, size, center, dest);
-//        System.out.println("44");
-//        return dest;
-//
 
     }
 

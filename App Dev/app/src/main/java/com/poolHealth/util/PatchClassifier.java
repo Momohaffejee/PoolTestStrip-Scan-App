@@ -49,10 +49,6 @@ class CompareClass extends AsyncTask<RequiredData, Integer, RequiredData>{
     JSONArray fc_value_array = new JSONArray();
     JSONArray pro_value_array = new JSONArray();
     JSONArray ph_value_array = new JSONArray();
-    JSONArray blo_value_array = new JSONArray();
-    JSONArray glu_value_array = new JSONArray();
-    JSONArray asc_value_array = new JSONArray();
-
 
     // declaring modal class
     CalculatedDataModelClass calculatedDataModelClass;
@@ -63,12 +59,6 @@ class CompareClass extends AsyncTask<RequiredData, Integer, RequiredData>{
     ArrayList<CalculatedDataModelClass> fc_result = new ArrayList<>();
     ArrayList<CalculatedDataModelClass> pro_result = new ArrayList<>();
     ArrayList<CalculatedDataModelClass> ph_result = new ArrayList<>();
-    ArrayList<CalculatedDataModelClass> blo_result = new ArrayList<>();
-    ArrayList<CalculatedDataModelClass> glu_result = new ArrayList<>();
-    ArrayList<CalculatedDataModelClass> asc_result = new ArrayList<>();
-
-    // hashmap type variable to store the final results after comparing
-//    HashMap<String, String> compareResults = new HashMap<String, String>();
 
 
     @Override
@@ -213,19 +203,6 @@ class CompareClass extends AsyncTask<RequiredData, Integer, RequiredData>{
         }
 
 
-
-//        System.out.println("Smallest leu = "+smallest_leu);
-//        System.out.println("Smallest nit = "+smallest_nit);
-//        System.out.println("Smallest uro = "+smallest_uro);
-//        System.out.println("Smallest pro = "+smallest_pro);
-//        System.out.println("Smallest ph = "+smallest_ph);
-//        System.out.println("Smallest blo = "+smallest_blo);
-//        System.out.println("Smallest sg = "+smallest_sg);
-//        System.out.println("Smallest ket = "+smallest_ket);
-//        System.out.println("Smallest bil = "+smallest_bil);
-//        System.out.println("Smallest glu = "+smallest_glu);
-//        System.out.println("Smallest asc = "+smallest_asc);
-
         // setting the final results in the HashMap compareResults
         PoolReport poolReport = new PoolReport();
         poolReport.setScn_no(requiredData.getPt_no());
@@ -237,21 +214,6 @@ class CompareClass extends AsyncTask<RequiredData, Integer, RequiredData>{
         poolReport.setPh(Float.parseFloat(ph));
 
 
-
-//        compareResults.put("Leu", leu);
-//        compareResults.put("Nit", nit);
-//        compareResults.put("Uro", uro);
-//        compareResults.put("Pro", pro);
-//        compareResults.put("Ph", ph);
-//        compareResults.put("Blo", blo);
-//        compareResults.put("Sg", sg);
-//        compareResults.put("Ket", ket);
-//        compareResults.put("Bil", bil);
-//        compareResults.put("Glu", glu);
-//        compareResults.put("Asc", asc);
-
-        // printing the final result
-//        System.out.println("Final compared result = "+compareResults);
         LabDB db = new LabDB(requiredData.getContext());
         db.SavePoolReport(poolReport);
 

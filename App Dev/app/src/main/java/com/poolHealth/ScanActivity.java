@@ -41,8 +41,8 @@ public class ScanActivity extends AppCompatActivity {
         btnNewScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent patientIntent = new Intent(getApplicationContext(), ScanDetails.class);
-                startActivity(patientIntent);
+                Intent poolIntent = new Intent(getApplicationContext(), ScanDetails.class);
+                startActivity(poolIntent);
             }
         });
     }
@@ -57,38 +57,10 @@ public class ScanActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.setting:
-                //startActivity(new Intent(this, About.class));
-//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                builder.setTitle("Server Address");
-//
-//// Set up the input
-//                final EditText input = new EditText(this);
-//// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-//                input.setInputType(InputType.TYPE_CLASS_TEXT);
-//                input.setText(server_url);
-//                builder.setView(input);
-//
-//// Set up the buttons
-//                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        server_url = input.getText().toString();
-//                        sharedPreferences.edit().putString("SERVERADDRESS",server_url).apply();
-//                    }
-//                });
-//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                });
-//
-//                builder.show();
                 Intent intent = new Intent();
                 intent.setType("*/*");
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Json File"), PICK_FILE);
 
                 return true;
             default:
@@ -102,7 +74,6 @@ public class ScanActivity extends AppCompatActivity {
             Uri uri = data.getData();
             String fileContent = readTextFile(uri);
             Log.d("Selected file content ",fileContent);
-            // Replace data
             LabDB db = new LabDB(this);
             db.setPoolData(fileContent);
         }
