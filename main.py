@@ -1,11 +1,11 @@
-from tkinter import S
 from DUALandLIME import enhance_image_exposure
 import matplotlib.pyplot as plt
 import cv2
-from ImageEnhancement import *
 from sklearn.cluster import KMeans
+from ImageEnhancementFuncs import *
+from DominantColor import *
 
-image  = cv2.imread("images/sample11.jpeg")
+image  = cv2.imread("images/sample15.jpeg")
 
 '''Image Enhancement Methods and Techniques'''
 Enhanced_image = enhance_image_exposure(image,0.6,0.15)
@@ -28,6 +28,9 @@ blur_img = fast_gaussian_blur(contrast_stretch_img, 3, 1)
 gamma_img = gamma(blur_img, 1.1)
 color_balanced_img = color_balance(gamma_img, 2, 1)
 
+ColorBalImg = color_balance(Enhanced_image_LINE,2,1)
+colorcb = simplest_cb(image,1)
+
 gray = cv2.cvtColor(color_balanced_img,cv2.COLOR_BGR2GRAY)
 
 ''' Filter Image to reduce noise '''
@@ -39,10 +42,15 @@ th1 = cv2.adaptiveThreshold(Blurred,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BI
 '''Apply Binarization on Adaptive Thresholded image'''
 ret, thresh = cv2.threshold(th1, 150, 255, cv2.THRESH_BINARY_INV)
 
+#cv2.imshow("Horizontal_image",thresh)
+#cv2.waitKey(0)
+
 '''Obtain horizontal lines mask'''
 horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25,1))
 horizontal_mask = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, horizontal_kernel, iterations=1)
 horizontal_mask = cv2.dilate(horizontal_mask, horizontal_kernel, iterations=9)
+
+#cv2.imshow("Horizontal_image",horizontal_mask)
 
 '''Obtain vertical lines mask'''
 vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1,50))
@@ -57,7 +65,7 @@ kernel = np.ones((5,5),np.uint8)
 dilated_img = cv2.dilate(result, kernel, iterations = 1)
 
 '''Find Contours in the image '''
-contours  = cv2.findContours(dilated_img, cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)[0]
+contours  = cv2.findContours(dilated_img, cv2.RETR_TREE ,cv2.CHAIN_APPROX_NONE)[0]
 
 '''Detecting Colors on the Reference Chart by detecting rectangles/sqaures in the image from the obtained contours'''
 cnts = contours
@@ -68,15 +76,19 @@ ColorBalImg = color_balance(image,2,1)
 for cnt in cnts:
     if cv2.contourArea(cnt) >3000 : # filter small contours
         x,y,w,h = cv2.boundingRect(cnt) # offsets - with this you get 'mask'
-        cv2.rectangle(Enhanced_image_LINE,(x,y),(x+w,y+h),(0,255,0),2)
-        Color_Components.append(Enhanced_image_LINE[y:y+h,x:x+w])
+        cv2.rectangle(ColorBalImg,(x,y),(x+w,y+h),(0,255,0),2)
+        Color_Components.append(ColorBalImg[y:y+h,x:x+w])
+
 
 patches = [ ]
 LW = (0,0,221)
 UW = (180,30,255)
+decide = False
+ColorHSV = []
 
 for color in Color_Components:  
-    cv2.imshow("Color",color)
+    
+    cv2.imshow("Patch Color",color)
     cv2.waitKey(0)
 
     height, width, _ = np.shape(color)
@@ -99,14 +111,20 @@ for color in Color_Components:
     # finally, we'll output a graphic showing the colors in order
     for index, rows in enumerate(combined):
       bar, rgb, hsv = make_bar(100, 100, rows[1])
-      if hsv[0]>LW[0] and hsv[1]>LW[1] and hsv[2]>LW[2]and hsv[0]<UW[0] and hsv[1]<UW[1] and hsv[2]<UW[2] :
+      if hsv[0]>LW[0] and hsv[1]>LW[1] and hsv[2]>LW[2]and hsv[0]<UW[0] and hsv[1]<UW[1] and hsv[2]<UW[2] or decide == False:
+        #print('HSV value:',hsv) 
+        decide = True
+
+      else:
         print('HSV value:',hsv)
-    
-    patches.append(color)
- 
+        ColorHSV.append(hsv)
+        decide = False
+     
+      patches.append(color)
+
 
 '''Resize Image'''
-Image1 = Enhanced_image_LINE
+Image1 = ColorBalImg
 scale_percent = 40 # percent of original size
 width = int(Image1.shape[1] * scale_percent / 100)
 height = int(Image1.shape[0] * scale_percent / 100)
