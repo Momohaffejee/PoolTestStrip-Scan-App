@@ -5,40 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.poolHealth.ScanDetails">
+
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Scan Report"
-                android:textStyle="bold"
-                android:textSize="25dp" />
-            <TableLayout android:id="@+id/txtPersonaldetailTable"
+                android:fontFamily="@font/fjalla_one"
+                android:text="Scan Results"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/txtPersonaldetailTable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:stretchColumns="*">
+
                 <TableRow>
+
                     <TextView
-                        android:text="Scan No:" android:width ="120dp"/>
+                        android:width="120dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Pool No. :" />
+
                     <TextView
-                        android:id="@+id/txtScanNo" android:width="200dp" />
+                        android:id="@+id/txtScanNo"
+                        android:width="200dp" />
                 </TableRow>
+
                 <TableRow>
-                    <TextView
-                        android:text="Name :"
-                        android:width ="120dp"/>
+
+                    <TextView android:width="120dp" />
+
                     <TextView
                         android:id="@+id/txtScanName"
                         android:width="200dp"
-                        android:singleLine="true"
-                        />
+                        android:singleLine="true" />
                 </TableRow>
 
 
@@ -48,16 +61,17 @@
                 android:id="@+id/txtChemBalanceTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chem Balance"
-                android:textStyle="bold"
+                android:fontFamily="@font/fjalla_one"
+                android:text="Pool Water Chemical Balance"
+                android:textColor="#309CF1"
                 android:textSize="25dp"
-                />
+                android:textStyle="bold" />
+
             <TableLayout
                 android:id="@+id/tblChemBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:stretchColumns="*"
-                >
+                android:stretchColumns="*">
 
             </TableLayout>
 
@@ -65,87 +79,128 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:stretchColumns="*">
-                <TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
                     <TextView
-                        android:text="Test"
-                        />
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Test" />
+
+                    <TextView />
+
                     <TextView
-                        android:text="Result"
-                        />
-                    <TextView
-                        android:text="Remark"
-                        />
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Chemical Level" />
 
                 </TableRow>
 
             </TableLayout>
             <!--POOL REPORT -->
-            <TextView
-                android:id="@+id/txtPoolReportTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="POOL REPORT"
-                android:textStyle="bold"
-                android:textSize="25dp"
-                />
-            <TableLayout android:id="@+id/tblPoolTest"
+
+            <TableLayout
+                android:id="@+id/tblPoolTest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:stretchColumns="*">
+
                 <TableRow>
+
                     <TextView
-                        android:text="Total Hardness:"
-                        android:width ="120dp"/>
+                        android:width="120dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Total Hardness:" />
+
                     <TextView
                         android:id="@+id/txtTotalHardness"
-                        android:width="200dp" />
+                        android:width="200dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="0" />
                 </TableRow>
+
                 <TableRow>
+
                     <TextView
-                        android:text="Bromine :"
-                        android:width ="120dp"/>
+                        android:width="120dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Bromine :" />
+
                     <TextView
                         android:id="@+id/txtBromine"
-                        android:width="200dp" />
+                        android:width="200dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="0" />
                 </TableRow>
+
                 <TableRow>
+
                     <TextView
-                        android:text="Free Chlorine :"
-                        android:width ="120dp"/>
+                        android:width="120dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Free Chlorine :" />
+
                     <TextView
                         android:id="@+id/txtFreeChlorine"
-                        android:width="200dp"/>
+                        android:width="200dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="0" />
                 </TableRow>
+
                 <TableRow>
+
                     <TextView
-                        android:text="Alkalinity :"
-                        android:width ="120dp"/>
-                    <TextView
-                        android:id="@+id/txtAlkalinity"
-                        android:width="200dp"/>
-                </TableRow>
-                <TableRow>
-                    <TextView
-                        android:text="pH :"
-                        android:width ="120dp"/>
+                        android:width="120dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="pH :" />
+
                     <TextView
                         android:id="@+id/txtpH"
-                        android:width="200dp"/>
+                        android:width="200dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="0" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:width="120dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Alkalinity :" />
+
+                    <TextView
+                        android:id="@+id/txtAlkalinity"
+                        android:width="200dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="0" />
                 </TableRow>
 
 
             </TableLayout>
+
             <TextView
-                android:layout_marginTop="20dp"
+                android:id="@+id/txtReport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtReport"/>
-            <Button
-                android:id="@+id/btnSendDataToPrint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Print Report"/>
-            
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/fjalla_one"
+                android:textColor="#156D95"
+                android:textSize="20sp" />
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btnSendDataToPrint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="New Scan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView"
+        app:layout_constraintVertical_bias="0.815"
+        tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>

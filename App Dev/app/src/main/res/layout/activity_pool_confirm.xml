@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.poolHealth.PoolConfirmActivity">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,26 +15,38 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             />
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/camera_photo"
+            android:layout_marginTop="40dp"
+            android:text=""/>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <Button
                 android:id="@+id/reopencamera"
-                android:text="Re Capture"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                />
+                android:layout_weight="1"
+                android:background="#EF4C4C"
+                android:fontFamily="@font/fjalla_one"
+                android:text="Re Capture" />
+
             <Button
                 android:id="@+id/done"
-                android:text="Done"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                />
+                android:layout_weight="1"
+                android:background="#47AAFA"
+                android:fontFamily="@font/fjalla_one"
+                android:text="Done" />
 
         </LinearLayout>
     </LinearLayout>

@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.poolHealth.Models.ScanModel;
 import com.poolHealth.Models.PoolReport;
-import com.poolHealth.Models.ChemBalance;
 
 import java.util.Calendar;
 
@@ -19,7 +18,7 @@ public class LabDB extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "pathlogyonbox.db";
+    private static final String DATABASE_NAME = "pooltest.db";
 
     // Common Column
     private static final String COLUMN_SCN_NO = "scno";
@@ -42,11 +41,11 @@ public class LabDB extends SQLiteOpenHelper {
     private static final String TABLE_POOL_TEST = "pool_test";
     // Columns of Pool
 
-    private static final String COLUMN_PH = "ph";
     private static final String COLUMN_ALKALINITY = "alk";
+    private static final String COLUMN_PH = "ph";
     private static final String COLUMN_FC = "fc";
     private static final String COLUMN_BROMINE = "bro";
-    private static final String COLUMN_THARD = "thard";
+    private static final String COLUMN_HARDNESS = "thard";
 
     // DATA TABLE
     private static final String TABLE_DATA = "pool_data";
@@ -76,11 +75,11 @@ public class LabDB extends SQLiteOpenHelper {
         String CREATE_POOL_REPORT_TABLE = "CREATE TABLE " + TABLE_POOL_TEST + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_SCN_NO + " INTEGER,"
-                + COLUMN_PH + " REAL DEFAULT 0,"
                 + COLUMN_ALKALINITY + " REAL DEFAULT 0,"
+                + COLUMN_PH + " REAL DEFAULT 0,"
                 + COLUMN_FC + " REAL DEFAULT 0,"
                 + COLUMN_BROMINE + " REAL DEFAULT 0,"
-                + COLUMN_THARD + " REAL DEFAULT 0,"
+                + COLUMN_HARDNESS + " REAL DEFAULT 0,"
                 + COLUMN_ADDEDDATE + " TEXT,"
                 + COLUMN_UPDATEDDATE + " TEXT)";
         db.execSQL(CREATE_POOL_REPORT_TABLE);
@@ -129,36 +128,7 @@ public class LabDB extends SQLiteOpenHelper {
         db.close();
         return scanModel;
     }
-    public int SaveChemBalance(ChemBalance chemBalance){
-        int result = 0;
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_UPDATEDDATE, Calendar.getInstance().getTimeInMillis()/1000);
-        if(chemBalance.getRow_id()!=0){
-            db.update(TABLE_CHEM_BALANCE,values,COLUMN_ID+"=?",new String[]{String.valueOf(chemBalance.getRow_id())});
-            result = chemBalance.getRow_id();
-        }else{
-            values.put(COLUMN_ADDEDDATE, Calendar.getInstance().getTimeInMillis()/1000);
-            db.insert(TABLE_CHEM_BALANCE,null,values);
-            result = getLastID(TABLE_CHEM_BALANCE,db);
-        }
-        db.close();
-        return result;
-    }
-    public ChemBalance getLastChemBalance(int scn_no){
-        ChemBalance chemBalance = new ChemBalance();
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_CHEM_BALANCE, new String[] { COLUMN_ID}, COLUMN_SCN_NO + "=?",
-                new String[] { String.valueOf(scn_no) }, null, null, COLUMN_ID + " DESC", String.valueOf(1));
-        if (cursor.moveToFirst()) {
-            chemBalance.setRow_id(Integer.parseInt(cursor.getString(0)));
-        }
-        chemBalance.setScn_no(scn_no);
-        cursor.close();
-        db.close();
-        return chemBalance;
-    }
 
 
 
@@ -167,11 +137,11 @@ public class LabDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_SCN_NO, poolReport.getScn_no());
-        values.put(COLUMN_THARD, poolReport.getThardness());
+        values.put(COLUMN_HARDNESS, poolReport.getTh());
         values.put(COLUMN_BROMINE, poolReport.getBro());
         values.put(COLUMN_FC, poolReport.getFC());
-        values.put(COLUMN_ALKALINITY, poolReport.getAlkanility());
         values.put(COLUMN_PH, poolReport.getPh());
+        values.put(COLUMN_ALKALINITY, poolReport.getAlk());
         values.put(COLUMN_UPDATEDDATE, Calendar.getInstance().getTimeInMillis()/1000);
         if(poolReport.getRow_id()!=0){
             db.update(TABLE_POOL_TEST,values,COLUMN_ID+"=?",new String[]{String.valueOf(poolReport.getRow_id())});
@@ -191,20 +161,21 @@ public class LabDB extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_POOL_TEST, new String[] {
                 COLUMN_ID,
-                        COLUMN_THARD,
+                        COLUMN_HARDNESS,
                 COLUMN_BROMINE,
                         COLUMN_FC,
+                        COLUMN_PH,
                 COLUMN_ALKALINITY,
-                COLUMN_PH,
+
                 }, COLUMN_SCN_NO + "=?",
                 new String[] { String.valueOf(scn_no) }, null, null, COLUMN_ID + " DESC", String.valueOf(1));
         if (cursor.moveToFirst()) {
             poolReport.setRow_id(Integer.parseInt(cursor.getString(0)));
-            poolReport.setThardness((float) Double.parseDouble(cursor.getString(1)));
+            poolReport.setTh((float) Double.parseDouble(cursor.getString(1)));
             poolReport.setBro((float) Double.parseDouble(cursor.getString(2)));
             poolReport.setFC((float) Double.parseDouble(cursor.getString(3)));
-            poolReport.setAlkanility((float) Double.parseDouble(cursor.getString(5)));
             poolReport.setPh((float) Double.parseDouble(cursor.getString(4)));
+            poolReport.setAlk((float) Double.parseDouble(cursor.getString(5)));
         }
         poolReport.setScn_no(scn_no);
         cursor.close();

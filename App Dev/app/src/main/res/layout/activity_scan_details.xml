@@ -18,6 +18,7 @@
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/fjalla_one"
                 android:text="Pool Scanner"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
@@ -28,7 +29,9 @@
                 android:stretchColumns="*">
                 <TableRow>
                     <TextView
-                        android:text="Pool No:" android:width ="120dp"/>
+                        android:text="Pool No:" android:width ="120dp"
+                        android:fontFamily="@font/fjalla_one"
+                        android:layout_marginLeft="7dp"/>
                     <TextView
                         android:id="@+id/txtScanNo" android:width="200dp" />
                 </TableRow>
@@ -48,14 +51,33 @@
                     <Button android:text="New Pool"
                         android:background="@color/colorPrimary"
                         android:layout_marginTop="211dp"
+                        android:fontFamily="@font/fjalla_one"
                         android:id="@+id/btnSave"/>
 
-                </TableRow>
 
+                </TableRow>
+                <Button android:text="Existing Pool"
+                    android:background="@color/colorPrimary"
+                    android:layout_below="@id/btnSave"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/fjalla_one"
+                    android:id="@+id/btnExist"/>
+                <TextView
+                    android:id="@+id/old_pool"
+                    android:layout_width="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/fjalla_one"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_below="@+id/btnExist"
+                    android:text="Input Pool No. here: ______________________"/>
                 <TableRow>
 
                     <Button android:text="Scan Test Strip"
                         android:background="@color/colorPrimaryDark"
+                        android:fontFamily="@font/fjalla_one"
                         android:id="@+id/btnPoolTest"/>
                 </TableRow>
             </TableLayout>

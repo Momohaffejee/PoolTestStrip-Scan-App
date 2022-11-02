@@ -8,10 +8,10 @@
     <string name="title_activity_settings">Settings</string>
     <string name="server_address">http://192.168.1.113:5000/upload</string>
     <string name="about_button">About</string>
-    <string name="about_text">Pool water scanning application</string>
-    <string name="about_title">About notsoDeadPool</string>
-    <string name="instructions_title">How to use notsoDeadPool</string>
-    <string name="instructions_text">This is how to use notsoDeadPool</string>
+    <string name="about_text"> A 4th Year Information Engineering Project undertaken by Mohammed Haffejee and Thabo Tshabalala. This Mobile Application was created to scan pool water test strips and provide results and suggestions to the User regarding the pool Chemical Balance of Pool Water. \n The Application utilises Artificial Intelligence to perform its test strip scanning functionality. \n Stay Tuned for updates to the notsoDeadPool application! </string>
+    <string name="about_title">About the development of the notsoDeadPool Pool Test Strip Scanner</string>
+    <string name="instructions_title">How to use notsoDEADPool to keep your Pool Alive! </string>
+    <string name="instructions_text"> 1) Click Start on the Home Page \n2) Pick New or Existing Pool to begin a scanning session \n3) Prepare the test strip for scanning by \n     3.1) Dipping the test strip in pool water at elbows depth for 2 seconds \n      3.2) Remove with patches facing up (DO NOT SHAKE OFF EXCESS WATER!) \n      3.3) Place strip on a flat surface facing up to be scanned \n Note: Scanning accuracy is improved if test strip is placed on a plain black background with natural lighting \n4) Click the Scan Test Strip Button on the application to launch the camera \n 5) Place the camera 10cm above the test strip and align both accordingly. Capture and confirm the image of the test strip \n6) Wait to receive and review results of the test strip \n7) Receive Suggestions on how to optimise Chemical Balance of your pool \n8) CHIMICHANGA! SWIM ON!  </string>
     <string name="done_button">Done</string>
 
 </resources>

@@ -18,97 +18,426 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chemical Balance Report"
+            android:fontFamily="@font/fjalla_one"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             android:textSize="32dp" />
-        <TableLayout android:id="@+id/tblPoolTest"
+
+        <TableLayout
+            android:id="@+id/tblPoolTest"
             android:layout_width="wrap_content"
             android:layout_height="500dp"
+            android:fontFamily="@font/fjalla_one"
             android:stretchColumns="*">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/tableRow"
+                android:layout_height="31dp">
+
+                <Button
+                    android:id="@+id/btnth0"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    android:background="#39587D"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/btnth100"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="60dp"
+                    android:background="#545F89"
+                    app:layout_constraintEnd_toStartOf="@+id/btnth200"
+                    app:layout_constraintHorizontal_bias="0.945"
+                    app:layout_constraintStart_toEndOf="@+id/btnth0"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnth200"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="#47333D"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnth400"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="#5A3245"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnth800"
+                    app:layout_constraintHorizontal_bias="0.526"
+                    app:layout_constraintStart_toEndOf="@+id/btnth200"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/btnth800"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#763046"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
             <TableRow>
+
                 <TextView
+                    android:width="200dp"
+                    android:height="50dp"
                     android:text="Total Hardness (TH) :"
-                    android:width ="200dp"
-                    android:textSize="20dp"
-                    android:height= "50dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:fontFamily="@font/fjalla_one"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
                 <EditText
                     android:id="@+id/txtTotalHardness"
                     android:width="200dp"
+                    android:fontFamily="@font/fjalla_one"
                     android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
                     android:singleLine="true"
-                    android:text="200"
-                    android:inputType="number"/>
+                    android:text="0" />
             </TableRow>
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/tableRow2"
+                android:layout_height="31dp">
+
+                <Button
+                    android:id="@+id/btnbr0"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    android:background="#E3DBB2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/btnbr1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="#D1E08C"
+                    app:layout_constraintEnd_toStartOf="@+id/btnbr2"
+                    app:layout_constraintHorizontal_bias="0.974"
+                    app:layout_constraintStart_toEndOf="@+id/btnbr0"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnbr2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="#94B18B"
+                    app:layout_constraintEnd_toStartOf="@+id/btnbr4"
+                    app:layout_constraintHorizontal_bias="0.771"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnbr4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="#83B56F"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnbr10"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/btnbr10"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="80dp"
+                    android:background="#578E7F"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnbr20"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#4D979E"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
             <TableRow>
+
                 <TextView
+                    android:width="200dp"
+                    android:height="50dp"
                     android:text="Total Bromine (Br) :"
-                    android:width ="200dp"
-                    android:textSize="20dp"
-                    android:height= "50dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:fontFamily="@font/fjalla_one"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
                 <EditText
                     android:id="@+id/txtBromine"
                     android:width="200dp"
                     android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:fontFamily="@font/fjalla_one"
                     android:singleLine="true"
-                    android:text="2"
-                    android:inputType="number"/>
+                    android:text="0" />
             </TableRow>
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/tableRow3"
+                android:layout_height="31dp">
+
+                <Button
+                    android:id="@+id/btnfh0"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    android:background="#E3DBB2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/btnfh1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="#CCD7A7"
+                    app:layout_constraintEnd_toStartOf="@+id/btnfh2"
+                    app:layout_constraintHorizontal_bias="0.847"
+                    app:layout_constraintStart_toEndOf="@+id/btnfh0"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnfh2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="#99BF77"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.414"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnfh3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="#6E986D"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnfh5"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/btnfh2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Button
+                    android:id="@+id/btnfh5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="76dp"
+                    android:background="#5E9375"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnfh10"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#1E645B"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/btnfh5"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
             <TableRow>
+
                 <TextView
+                    android:width="200dp"
+                    android:height="50dp"
                     android:text="Free Chlorine (FH) :"
-                    android:width ="200dp"
-                    android:textSize="20dp"
-                    android:height= "50dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:fontFamily="@font/fjalla_one"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/txtFreeChlorine"
                     android:layout_height="match_parent"
                     android:width="200dp"
                     android:imeOptions="actionNext"
+                    android:fontFamily="@font/fjalla_one"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
-                    android:text="5" />
+                    android:text="0" />
             </TableRow>
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/tableRow4"
+                android:layout_height="31dp">
 
+                <Button
+                    android:id="@+id/btnph62"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    android:background="#F7B350"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/btnph68"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="#DBF89C44"
+                    app:layout_constraintEnd_toStartOf="@+id/btnph72"
+                    app:layout_constraintHorizontal_bias="0.804"
+                    app:layout_constraintStart_toEndOf="@+id/btnph62"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnph72"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="#F58556"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.425"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnph78"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="#CF466D"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnph84"
+                    app:layout_constraintStart_toEndOf="@+id/btnph72"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Button
+                    android:id="@+id/btnph84"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="76dp"
+                    android:background="#DC5270"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </android.support.constraint.ConstraintLayout>
             <TableRow>
+
                 <TextView
+                    android:width="200dp"
+                    android:height="50dp"
                     android:text="pH :"
-                    android:width ="200dp"
-                    android:textSize="20dp"
-                    android:height= "50dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
                 <EditText
                     android:id="@+id/txtpH"
                     android:width="200dp"
+                    android:fontFamily="@font/fjalla_one"
                     android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
                     android:singleLine="true"
-                    android:text="7.8"
-                    android:inputType="numberDecimal"/>
+                    android:text="0" />
             </TableRow>
-            <TableRow>
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/tableRow5"
+                android:layout_height="31dp">
+
+                <Button
+                    android:id="@+id/btnta0"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    android:background="#DAB90E"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/btnta40"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="#8D9317"
+                    app:layout_constraintEnd_toStartOf="@+id/btnta80"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnta80"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="#46622B"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.425"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnta120"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="40dp"
+                    android:background="#1C5E45"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnta80"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Button
+                    android:id="@+id/btnta180"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="80dp"
+                    android:background="#0D7664"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/btnta120"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnta240"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#0E6F6F"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+            <TableRow android:orientation="vertical">
+
                 <TextView
+                    android:width="200dp"
+                    android:height="50dp"
+                    android:fontFamily="@font/fjalla_one"
                     android:text="Total Alkalinity (TA) :"
-                    android:width ="200dp"
-                    android:textSize="20dp"
-                    android:height= "50dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
                 <EditText
                     android:id="@+id/txtAlkalinity"
                     android:width="200dp"
                     android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:fontFamily="@font/fjalla_one"
                     android:singleLine="true"
-                    android:text="80"
-                    android:inputType="numberDecimal"/>
+                    android:text="0" />
             </TableRow>
 
 
         </TableLayout>
+
         <Button
             android:id="@+id/btnSavePool"
             android:text="Save"
+            android:fontFamily="@font/fjalla_one"
             android:background="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

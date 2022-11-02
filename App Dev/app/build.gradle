@@ -16,8 +16,14 @@ android {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
         python{
+            buildPython"C:/Users/haffejee/AppData/Local/Programs/Python/Python310/python.exe"
             pip{
+                install "opencv-contrib-python-headless"
                 install "numpy"
+                install "pillow"
+                install "extcolors"
+                install "scikit-learn"
+                install "scikit-image"
             }
 
         }

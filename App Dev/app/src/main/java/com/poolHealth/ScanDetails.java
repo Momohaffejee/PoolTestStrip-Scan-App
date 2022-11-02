@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.poolHealth.Models.ChemBalance;
+import com.poolHealth.Models.PoolReport;
 import com.poolHealth.Models.ScanModel;
 import com.poolHealth.util.LabDB;
 
@@ -38,7 +38,7 @@ public class ScanDetails extends AppCompatActivity {
     Button btnPoolTest;
     TextView txtPlno;
     ScanModel newScan = new ScanModel();
-    ChemBalance chemBalance = new ChemBalance();
+    PoolReport poolReport = new PoolReport();
 
     private  static  int TAKE_PICTURE = 111;
     String mCurrentPhotoPath;
@@ -119,16 +119,16 @@ public class ScanDetails extends AppCompatActivity {
             }
             newScan.setPlNo(np);
 
-            chemBalance.setScn_no(newScan.getPlNo());
+            poolReport.setScn_no(newScan.getPlNo());
 
 
-            int last_chembalance_row_id = db.SaveChemBalance(chemBalance);
+            int last_poolreport_row_id = db.SavePoolReport(poolReport);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            chemBalance.setRow_id(last_chembalance_row_id);
+            poolReport.setRow_id(last_poolreport_row_id);
             return null;
         }
 
@@ -138,7 +138,7 @@ public class ScanDetails extends AppCompatActivity {
             if(dialog.isShowing())
                 dialog.dismiss();
             txtPlno.setText(String.valueOf(newScan.getPlNo()));
-            Toast.makeText(getApplicationContext(),"Pool Saved " + newScan.getPlNo() + " V " + chemBalance.getRow_id(),Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Pool Saved " + newScan.getPlNo() + " V " + poolReport.getRow_id(),Toast.LENGTH_LONG).show();
         }
     }
 

@@ -3,27 +3,24 @@ package com.poolHealth;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.poolHealth.Models.ChemBalance;
 import com.poolHealth.Models.PoolReport;
 import com.poolHealth.Models.ScanModel;
 import com.poolHealth.util.LabDB;
 
 import java.io.OutputStream;
-import java.util.Calendar;
 
 public class ChemReport extends AppCompatActivity {
     int scn_no;
     ScanModel scanModel;
-    ChemBalance chemBalance;
+
     PoolReport poolReport;
     TextView txtPlNo, txtPlName;
-    TextView txtThardness, txtBromine, txtFC, txtAlkanility,txtPH;
-
+    TextView txtHardness, txtBromine, txtFC, txtAlk,txtPH;
+    Button restart;
     TextView txtReport;
     Button chemreport;
 
@@ -31,12 +28,13 @@ public class ChemReport extends AppCompatActivity {
 
     String value = "";
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chem_report);
         scn_no = getIntent().getIntExtra("PLNO", 0);
+        System.out.println(scn_no);
         if (scn_no == 0) {
             Toast.makeText(getApplicationContext(), "No Scan Selected", Toast.LENGTH_SHORT).show();
             return;
@@ -46,10 +44,10 @@ public class ChemReport extends AppCompatActivity {
         txtPlName = findViewById(R.id.txtScanName);
 
         // Pool Test
-        txtThardness = findViewById(R.id.txtTotalHardness);
+        txtHardness = findViewById(R.id.txtTotalHardness);
         txtBromine = findViewById(R.id.txtBromine);
         txtFC = findViewById(R.id.txtFreeChlorine);
-        txtAlkanility = findViewById(R.id.txtAlkalinity);
+        txtAlk = findViewById(R.id.txtAlkalinity);
         txtPH = findViewById(R.id.txtpH);
 
 
@@ -60,7 +58,6 @@ public class ChemReport extends AppCompatActivity {
         // Local Database
         LabDB db = new LabDB(getApplicationContext());
         scanModel = db.getScan(scn_no);
-        chemBalance = db.getLastChemBalance(scn_no);
         poolReport = db.getLastPoolReport(scn_no);
 
         // Pool Details
@@ -68,108 +65,132 @@ public class ChemReport extends AppCompatActivity {
         txtPlName.setText(scanModel.getPlName());
 
 
-        txtThardness.setText(String.valueOf(poolReport.getThardness()));
+
         String Report = "Your Report Summary : \n";
         int toreport = 0;
-        if (poolReport.getThardness() > 0) {
+        int Hard;
+        Hard = (int) poolReport.getTh();
+        System.out.println(Hard + "lol");
+        if (Hard < 200) {
+            if(Hard==0){
+                txtHardness.setText("0 = Very Low");
+            }
+            else{
+                txtHardness.setText("100 = Low");
+            }
             toreport++;
-            Report += txtThardness.getText() +  " Total Hardness of Pool Water \n";
+            Report += " Add Calcium Chloride to Pool to increase Total Hardness \n";
+        }
+        else if(Hard < 800){
+            txtHardness.setText("800 = High");
+            toreport++;
+            Report += " Partially pump or drain Pool Water and replace with fresh tap or rain water to reduce Total Hardness\n";
+        }
+        else{
+            if(Hard==200)
+            {
+                txtHardness.setText("200 = IDEAL");
+            }
+            else{
+                txtHardness.setText("400 = IDEAL");
+            }
+            toreport++;
+            Report += " Total Hardness(Calcium) level in Pool is Optimal\n";
+        }
+        int brom;
+        brom = (int) poolReport.getBro();
+        System.out.println(brom + "lol2");
+        if(brom<2){
+            if(brom==0){
+                txtBromine.setText("0 = Very Low");
+            }
+            else{
+                txtBromine.setText("1 = Low");
+            }
+            toreport++;
+            Report += " Total Bromine level is Low: Add Bromine tablets or dispensers to Pool.\n Note: Optimal Bromine Levels are more crucial for Spa pools";
+        }else if (brom > 10) {
+            txtBromine.setText("20 = High");
+            toreport++;
+            Report += " Total Bromine level is High: 1) Remove any floating bromine dispensers \n 2) Partially drain pool water and add fresh tap water to dilute bromine\n";
+        }else{
+            txtBromine.setText(brom + " = IDEAL");
+            toreport++;
+            Report += " Total Bromine level in Pool is Optimal \n Note: Optimal Bromine level is more crucial in Spa pools\n";
+        }
+        int Free;
+        Free = (int) poolReport.getFC();
+        System.out.println(Free + "lol3");
+        if(Free ==0 ){
+            txtFC.setText("0 = Low");
+            toreport++;
+            Report += " Free Chlorine Level is Low: Add Chlorine Powder or Dispenser to Pool according to Pool Size \n Check Chlorine Control System if in use\n";
+        }else if(Free <5 ){
+            txtFC.setText(Free + " = IDEAL");
+            toreport++;
+            Report += " Free Chlorine Level in Pool is Optimal \n  ";
+
+        }
+        else{
+            txtFC.setText(Free + " = High");
+            if(Free == 5){
+                toreport++;
+                Report += " Free Chlorine Level is Slightly High: Remove any Chlorine dispensers or turn off Chlorine Control System (If Applicable)\n";
+            }
+            toreport++;
+            Report += " Free Chlorine Level is VERY High: WARNING-Avoid using Pool Until Chlorine level decreases \n Remove any Chlorine dispensers or turn off Chlorine Control System (If Applicable)\n";
+
+        }
+        float pH;
+        pH = (float) poolReport.getPh();
+        System.out.println(pH + "lol4");
+        if (pH <= 7.1) {
+
+            if(pH == 6.2 ){
+                txtPH.setText("6.2 = Very Low");
+                toreport++;
+                Report += " pH Level is Very Low: Add Pool Soda Ash/pH Increaser to Pool immediately\n";
+            }
+            else{
+                txtPH.setText("6.8 = Low");
+                toreport++;
+                Report += " pH Level is Low: Add Pool Soda Ash/pH Increaser to Pool\n";
+            }
+
+        }
+        else if (pH == 8.4){
+            txtPH.setText("8.4 = High");
+            toreport++;
+            Report += " pH Level is High: Add Pool Acid to Pool\n";
+        }
+        else if(pH >= 7.2){
+            txtPH.setText(pH + " = IDEAL");
+            toreport++;
+            Report += " pH Level in Pool is Optimal\n";
         }
 
-        txtBromine.setText(String.valueOf(poolReport.getBro()));
-        if(poolReport.getBro()<2){
-            txtBromine.setText("Negative");
-        }else if (poolReport.getBro() < 2) {
+
+        int Alky;
+        Alky = (int) poolReport.getAlk();
+        if(Alky<120){
+            txtAlk.setText(Alky + " = Low");
             toreport++;
-            Report += "Small amount of Bromine detected \n";
-        }else if(poolReport.getBro()>1){
+            Report += " Total Alkalinity is Low: Add Pool Alkaline Increaser to Pool \n";
+        }else if(Alky==120){
+            txtAlk.setText("120 = IDEAL");
             toreport++;
-            Report += "Bromine levels in Pool Water \n";
-        }
-        if(poolReport.getFC()<5){
-            txtFC.setText("Normal");
-        }else {
-            txtFC.setText(String.valueOf(poolReport.getFC()));
-        }
-        if (poolReport.getFC() > 3) {
-            Report += "Free Chlorine is High \n";
-        }
-        if(poolReport.getAlkanility()<120){
-            txtAlkanility.setText("Negative");
-        }else if(poolReport.getAlkanility()<180){
-            txtAlkanility.setText("Trace");
+            Report += " Total Alkalinity in Pool is Optimal \n";
         } else {
-            txtAlkanility.setText(String.valueOf(poolReport.getAlkanility()));
+            txtAlk.setText(Alky + " = High");
+            toreport++;
+            Report += " Total Alkalinity is High: Add Pool Acid to Pool \n Note: Dilute Pool Acid before adding\n";
+
         }
-        if (poolReport.getAlkanility() > 120) {
-            Report += "Pool Water is more Alkaline than ideal \n";
-        }
-        txtPH.setText(String.valueOf(poolReport.getPh()));
-        if (poolReport.getPh() > 7.8) {
-            Report += "Your pool is more acidic than Normal Range \n";
-        }
+
 
         txtReport.setText(Report);
-        chemreport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FinalReport();
-            }
-        });
+        restart = findViewById(R.id.btnNewScan);
+
     }
 
-    void FinalReport(){
-        try{
-            byte[] format = {29, 33, 35 };
-            byte[] center =  { 0x1b, 'a', 0x01 };
-            byte[] left=new byte[]{0x1B, 'a',0x00};
-            byte[] textSize = new byte[]{0x1B,0x21,0x00};
-
-            outputStream.write(center);
-            outputStream.write(format);
-            String reporttoprint= "";
-            reporttoprint = getString(R.string.app_name).toUpperCase();
-            reporttoprint +="\n";
-            outputStream.write(textSize);
-            outputStream.write(reporttoprint.getBytes());
-            outputStream.write(left);
-            outputStream.write("Scan Detail\n".getBytes());
-            outputStream.write("--------------\n".getBytes());
-            String ptLine ="Scan :";
-            ptLine += String.valueOf(scanModel.getPlNo());
-            ptLine += ", ";
-            ptLine += scanModel.getPlName();
-            ptLine += "\n";
-            outputStream.write(ptLine.getBytes());
-            outputStream.write("\n".getBytes());
-            outputStream.write("Chem Balance\n".getBytes());
-            outputStream.write("----------\n".getBytes());
-            outputStream.write("\n".getBytes());
-            outputStream.write("------------\n".getBytes());
-            outputStream.write("\n".getBytes());
-            outputStream.write("Pool Report\n".getBytes());
-            outputStream.write("------------\n".getBytes());
-
-            outputStream.write(("Total Hardness : " + txtThardness.getText() + "\n").getBytes());
-            outputStream.write(("Bromine : " + txtBromine.getText() + "\n").getBytes());
-            outputStream.write(("Free Chlorine : " + txtFC.getText() + "\n").getBytes());
-            outputStream.write(("Alkalinity : " + txtAlkanility.getText() + "\n").getBytes());
-            outputStream.write(("pH : " + txtPH.getText() + "\n").getBytes());
-
-            outputStream.write("\n".getBytes());
-            String ReportSummary = txtReport.getText().toString();
-            ReportSummary = ReportSummary.replace("\n","\n");
-            outputStream.write(txtReport.getText().toString().getBytes());
-            outputStream.write("\n".getBytes());
-            outputStream.write(("Printed Date " + Calendar.getInstance().getTime()).getBytes());
-            outputStream.write("\n\n\n".getBytes());
-
-            outputStream.close();
-
-
-        }catch (Exception e){
-            value+=e.toString()+ "\n" +"Invalid report \n";
-            Toast.makeText(this, value, Toast.LENGTH_LONG).show();
-        }
-    }
 }

@@ -31,6 +31,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fjalla_one"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="111dp"
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_centerHorizontal="true"
+            android:fontFamily="@font/fjalla_one"
             android:layout_marginTop="111dp"
             android:background="@drawable/button_bg"
             android:padding="10dp"
@@ -53,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnInstructions"
+            android:fontFamily="@font/fjalla_one"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="33dp"
             android:background="@drawable/button_bg"
@@ -63,18 +66,13 @@
             android:layout_width="114dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnNewScan"
+            android:fontFamily="@font/fjalla_one"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="33dp"
             android:background="@drawable/button_bg"
             android:text="Instructions" />
 
-        <TextView
-            android:id="@+id/text_view"
-            android:layout_width="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/about_button"
-            android:layout_marginTop="40dp" />
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

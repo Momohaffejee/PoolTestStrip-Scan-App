@@ -30,7 +30,7 @@ import java.io.InputStreamReader;
 public class MainActivity extends AppCompatActivity {
     Button btnNewScan, about_button, btnInstructions;
     String server_url = "";
-    TextView tv;
+
     SharedPreferences sharedPreferences;
     public static final int PICK_FILE= 101;
     @Override
@@ -39,11 +39,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (! Python.isStarted()) {
-            Python.start(new AndroidPlatform(this ));
-        }
 
-        tv = (TextView)findViewById(cR.id.text_view);
+
+
         server_url = getString(R.string.server_address);
         sharedPreferences = this.getSharedPreferences("poolhealth", Context.MODE_PRIVATE);
         String urlofserver = sharedPreferences.getString("SERVERADDRESS",server_url);
@@ -53,11 +51,7 @@ public class MainActivity extends AppCompatActivity {
         btnInstructions = findViewById(R.id.btnInstructions);
         btnInstructions.setOnClickListener(this::onInstructionsClicked);
 
-        Python py = Python.getInstance();
-        PyObject pyobj = py.getModule("myscript");
 
-        PyObject obj = pyobj.callAttr("main");
-        tv.setText(obj.toString());
 
 
         btnNewScan = findViewById(R.id.btnNewScan);

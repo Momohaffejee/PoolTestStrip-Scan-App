@@ -4,11 +4,11 @@ package com.poolHealth.Models;
 public class PoolReport {
     int scn_no;
     int row_id;
-    float thardness;
+    float th;
     float bro;
     float fc;
-    float alkalinity;
     float ph;
+    float alkalinity;
 
     public PoolReport(){
         scn_no = 0;
@@ -31,12 +31,12 @@ public class PoolReport {
         this.row_id = row_id;
     }
 
-    public float getThardness() {
-        return thardness;
+    public float getTh() {
+        return th;
     }
 
-    public void setThardness(float thardness) {
-        this.thardness = thardness;
+    public void setTh(float th) {
+        this.th = th;
     }
 
     public float getBro() {
@@ -55,20 +55,20 @@ public class PoolReport {
         this.fc = fc;
     }
 
-    public float getAlkanility() {
-        return alkalinity;
-    }
-
-    public void setAlkanility(float alkanility) {
-        this.alkalinity = alkanility;
-    }
-
     public float getPh() {
         return ph;
     }
 
     public void setPh(float ph) {
         this.ph = ph;
+    }
+
+    public float getAlk() {
+        return alkalinity;
+    }
+
+    public void setAlk(float alk) {
+        this.alkalinity = alk;
     }
 
 
