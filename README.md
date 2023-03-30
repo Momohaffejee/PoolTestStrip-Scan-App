@@ -1,7 +1,8 @@
-# PoolTestStrip Scan App
-A Capstone Investigation Project undertaken by Mohammed Haffejee and Thabo Tshabalala.  Involves the creation of a Mobile Application that scans pool water test strips to provide results and suggestions to the User regarding optimal pool Chemical Balance. 
+# Machine Learning PoolTestStrip Scanner 
+A Capstone Investigation Project undertaken by Mohammed Haffejee and Thabo Tshabalala.
+Involves the creation of a Mobile Application that uses Artificial Intelligence and Machine Learning techniques to test the chemical balance of pool water by scanning and analysing pool water test strips via an Android mobile camera.
 
-This application applies Artificial Intelligence and Image Processing techniques in its implementation.
+This application applies AI and Image Processing techniques in its implementation.
 It is able to provide chemical results to the user of 5-Way Pool Water Test Strips that  includes an indication of Total Hardness, Bromine, Free Chlorine, pH and Total Alkalinaty Chemical Levels in Pool Water.
 Application provides a suggested course of action regarding how to increase or decrease each chemical in the water as required based off the scanned test strip results.
 A simple Graphical User Interface is designed to make the application convenient and easy to use. 
